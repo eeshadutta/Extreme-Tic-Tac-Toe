@@ -17,6 +17,8 @@ import time
 import copy
 import traceback
 
+from team25 import Team25
+
 TIME = 24
 MAX_PTS = 86
 
@@ -351,30 +353,30 @@ def is_corner(row, col):
 
 if __name__ == '__main__':
 
-	if len(sys.argv) != 2:
-		print 'Usage: python simulator.py <option>'
-		print '<option> can be 1 => Random player vs. Random player'
-		print '                2 => Human vs. Random Player'
-		print '                3 => Human vs. Human'
-		sys.exit(1)
- 
-	obj1 = ''
-	obj2 = ''
-	option = sys.argv[1]	
-	if option == '1':
-		obj1 = Random_Player()
-		obj2 = Random_Player()
+	# if len(sys.argv) != 2:
+	# 	print 'Usage: python simulator.py <option>'
+	# 	print '<option> can be 1 => Random player vs. Random player'
+	# 	print '                2 => Human vs. Random Player'
+	# 	print '                3 => Human vs. Human'
+	# 	sys.exit(1)
+	
+	obj1 = Team25()
+	# obj2 = ''
+	# option = sys.argv[1]	
+	# if option == '1':
+	# 	obj1 = Random_Player()
+	# 	obj2 = Random_Player()
 
-	elif option == '2':
-		obj1 = Random_Player()
-		obj2 = Manual_Player()
-	elif option == '3':
-		obj1 = Manual_Player()
-		obj2 = Manual_Player()
-	else:
-		print 'Invalid option'
-		sys.exit(1)
+	# elif option == '2':
+	# 	obj1 = Random_Player()
+	# 	obj2 = Manual_Player()
+	# elif option == '3':
+	# 	obj1 = Manual_Player()
+	# 	obj2 = Manual_Player()
+	# else:
+	# 	print 'Invalid option'
+	# 	sys.exit(1)
 
-	x = gameplay(obj1, obj2)
-	print "Player 1 points:", x[0] 
-	print "Player 2 points:", x[1]
+	# x = gameplay(obj1, obj2)
+	# print "Player 1 points:", x[0] 
+	# print "Player 2 points:", x[1]
