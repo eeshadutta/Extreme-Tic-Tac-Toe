@@ -356,8 +356,9 @@ if __name__ == '__main__':
 	if len(sys.argv) != 2:
 		print 'Usage: python simulator.py <option>'
 		print '<option> can be 1 => Bot vs. Bot'
-		print '                2 => Bot vs. Random Player'
-		print '                3 => Bot vs. Human'
+		print '                2 => Random Player vs. Bot'
+		print '                3 => Bot vs. Random Player'
+		print '                4 => Human vs. Bot'
 		sys.exit(1)
 	
 	obj1 = ''
@@ -367,11 +368,13 @@ if __name__ == '__main__':
 	if option == '1':
 		obj1 = Team25()
 		obj2 = Team25()
-
 	elif option == '2':
 		obj1 = Random_Player()
 		obj2 = Team25()
 	elif option == '3':
+		obj1 = Team25()
+		obj2 = Random_Player()
+	elif option == '4':
 		obj1 = Manual_Player()
 		obj2 = Team25()
 	else:
@@ -379,5 +382,14 @@ if __name__ == '__main__':
 		sys.exit(1)
 
 	x = gameplay(obj1, obj2)
+	if option == '1':
+		print 'Bot Bot'
+	elif option == '2':
+		print 'Rand Bot'
+	elif option == '3':
+		print 'Bot Rand'
+	elif option == '4':
+		print 'Human Bot'
+
 	print "Player 1 points:", x[0] 
 	print "Player 2 points:", x[1]
