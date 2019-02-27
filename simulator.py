@@ -361,6 +361,7 @@ if __name__ == '__main__':
 	# 	sys.exit(1)
 	
 	obj1 = Team25()
+	obj2 = Team25()
 	# obj2 = ''
 	# option = sys.argv[1]	
 	# if option == '1':
@@ -377,6 +378,6 @@ if __name__ == '__main__':
 	# 	print 'Invalid option'
 	# 	sys.exit(1)
 
-	# x = gameplay(obj1, obj2)
+	x = gameplay(obj1, obj2)
 	# print "Player 1 points:", x[0] 
 	# print "Player 2 points:", x[1]
