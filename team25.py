@@ -68,25 +68,18 @@ class Team25:
         else:
             if board.big_boards_status[old_move[0]][old_move[1]][old_move[2]] == self.opponent_marker(flag):
                 self.update_hash(old_move, 0)
+
         self.turn = flag
-        max_depth = 9
+        max_depth = 6
         self.start_time = time.time()
         self.nodes_explored = 0
 
         valid_moves = board.find_valid_move_cells(old_move)
         best_move = valid_moves[0]
 
-
-        # while self.nodes_explored <= self.max_nodes:
-        # while time.time() - self.start_time < self.time_limit:
         board_copy = copy.deepcopy(board)
         best_move = self.minimax(board_copy, float(
             "-inf"), float("inf"), flag, 0, max_depth, old_move)[1]
-        # self.nodes_explored += 1
-        # print time.time() - self.start_time
-        # print 'nodes explored' , self.nodes_explored
-        # print 'max depth ' , max_depth
-        # max_depth += 1
         del board_copy
 
         self.update_hash(best_move, 1)
@@ -117,10 +110,6 @@ class Team25:
             num_moves = len(valid_moves)
 
             for i in xrange(num_moves):
-                if self.nodes_explored >= self.max_nodes:
-                    break
-                self.nodes_explored += 1
-
                 current_move = valid_moves[i]
                 board.update(old_move, current_move, flag)
                 self.update_hash(current_move, 1)
@@ -148,10 +137,6 @@ class Team25:
             num_moves = len(valid_moves)
 
             for i in xrange(num_moves):
-                if self.nodes_explored >= self.max_nodes:
-                    break
-                self.nodes_explored += 1
-
                 current_move = valid_moves[i]
                 board.update(old_move, current_move, flag)
                 self.update_hash(current_move, 0)
