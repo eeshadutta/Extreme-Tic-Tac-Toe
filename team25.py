@@ -24,11 +24,11 @@ class Team25:
         self.big_board_hash = [long(0), long(0)]
         self.small_board_hash = ([[long(0) for i in range(3)] for j in range(3)], [
                                  [long(0) for i in range(3)] for j in range(3)])
-        self.max_nodes = 1e5 + 5000
+        # self.max_nodes = 1e5 + 5000
         self.nodes_explored = 0
         patterns = []
         self.start_time = 0
-        self.time_limit = datetime.timedelta(seconds=20)
+        self.time_limit = datetime.timedelta(seconds=5)
 
         # rows , columns and diagonals
         for i in xrange(3):
@@ -67,10 +67,9 @@ class Team25:
 
     def move(self, board, old_move, flag):
         self.start_time = datetime.datetime.utcnow()
-        # self.time_limit = datetime.timedelta(seconds = 22)
-        if old_move == (-1, -1, -1):
-            self.update_hash((0, 4, 4), 1)
-            return (0, 4, 4)
+        # if old_move == (-1, -1, -1):
+            # self.update_hash((0, 4, 4), 1)
+            # return (0, 4, 4)
         
         self.turn = flag
 
@@ -89,8 +88,15 @@ class Team25:
             if temp_val != -111:
                 best_move = temp_move
             max_depth += 1
+
             print max_depth
             print datetime.datetime.utcnow() - self.start_time
+        
+            # if max_depth == 7:
+            #     if datetime.datetime.utcnow() - self.start_time > datetime.timedelta(seconds = 5):
+            #         del board_copy
+            #         break
+        
             del board_copy
 
         self.update_hash(best_move, 1)
@@ -114,7 +120,7 @@ class Team25:
         if current_depth == max_depth:
             if (self.total_board_hash, flag) in self.total_heuristic:
                 return self.total_heuristic[(self.total_board_hash, flag)], -2
-            return (self.heuristic(board, 0, flag) + self.heuristic(board, 1, flag)), -2
+            return (self.heuristic(board, 0, flag) + self.heuristic(board, 1, flag) - self.heuristic(board, 0, self.opponent_marker(flag)) - self.heuristic(board, 1, self.opponent_marker(flag))), -2
 
         valid_moves = board.find_valid_move_cells(old_move)
         random.shuffle(valid_moves)
@@ -193,13 +199,11 @@ class Team25:
             return min_utility, valid_moves[move_ind]
 
     def heuristic(self, board, big_board_num, flag):
-        # if that board hash is precomputed, then return else calculate
         if (self.big_board_hash[big_board_num], flag) in self.big_board_heuristic:
             return self.big_board_heuristic[(self.big_board_hash[big_board_num], flag)]
 
         utility = 0
 
-        # the status of the big board
         decision_board = board.small_boards_status[big_board_num]
         play_board = board.big_boards_status[big_board_num]
         # decision_board_heuristics = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
@@ -216,7 +220,6 @@ class Team25:
                 else:
                     small_play_board = tuple(
                         [tuple(play_board[3*i + x][3*j:3*(j+1)]) for x in xrange(3)])
-                    # if that small board hash is precomputed, then return else calculate
                     if (self.small_board_hash[big_board_num][i][j], flag) in self.small_board_heuristic:
                         decision_board_heuristics[i][j] = self.small_board_heuristic[(
                             self.small_board_hash[big_board_num][i][j], flag)]
@@ -236,7 +239,7 @@ class Team25:
 
         for i in xrange(3):
             for j in xrange(3):
-                utility += decision_board_heuristics[i][j] * \
+                utility += 0.02 * decision_board_heuristics[i][j] * \
                     self.cell_weight[i][j]
 
         self.big_board_heuristic[(
