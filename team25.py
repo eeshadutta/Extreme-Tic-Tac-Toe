@@ -123,7 +123,7 @@ class Team25:
             return (self.heuristic(board, 0, flag) + self.heuristic(board, 1, flag) - self.heuristic(board, 0, self.opponent_marker(flag)) - self.heuristic(board, 1, self.opponent_marker(flag))), -2
 
         valid_moves = board.find_valid_move_cells(old_move)
-        random.shuffle(valid_moves)
+        # random.shuffle(valid_moves)
 
         if flag == self.turn:
             max_utility = float("-inf")
@@ -178,7 +178,7 @@ class Team25:
                                             ][current_move[1]][current_move[2]] = '-'
                     board.small_boards_status[current_move[0]
                                               ][current_move[1]/3][current_move[2]/3] = '-'
-                    self.update_hash(current_move, 1)
+                    self.update_hash(current_move, 0)
                     return -111, (-1, -1, -1)
 
                 if node_val < min_utility:
