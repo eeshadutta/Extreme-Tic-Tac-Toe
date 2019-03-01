@@ -18,8 +18,10 @@ import copy
 import traceback
 
 from team25 import Team25
+from team11 import Team11
+from Team73_2 import Team_73
 
-TIME = 24
+TIME = 1000000
 MAX_PTS = 86
 
 class TimedOutExc(Exception):
@@ -359,6 +361,8 @@ if __name__ == '__main__':
 		print '                2 => Random Player vs. Bot'
 		print '                3 => Bot vs. Random Player'
 		print '                4 => Human vs. Bot'
+		print '                5 => Opp vs. Team25'
+		print '                6 => Team25 vs. Opp'
 		sys.exit(1)
 	
 	obj1 = ''
@@ -377,6 +381,12 @@ if __name__ == '__main__':
 	elif option == '4':
 		obj1 = Manual_Player()
 		obj2 = Team25()
+	elif option == '5':
+		obj1 = Team_73()
+		obj2 = Team25()
+	elif option == '6':
+		obj1 = Team25()
+		obj2 = Team_73()
 	else:
 		print 'Invalid option'
 		sys.exit(1)
@@ -390,6 +400,10 @@ if __name__ == '__main__':
 		print 'Bot Rand'
 	elif option == '4':
 		print 'Human Bot'
+	elif option == '5':
+		print 'Team73 Team25'
+	elif option == '6':
+		print 'Team25 Team73'
 
 	print "Player 1 points:", x[0] 
 	print "Player 2 points:", x[1]
